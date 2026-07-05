@@ -4,7 +4,7 @@ from aiogram.types import Message, CallbackQuery
 from bot.data.database import get_factory_by_owner, update_factory
 from bot.keyboards.inline import *
 
-main_menu_router: Router = Router()
+worker_panel_router: Router = Router()
 
 RAISE_WORKER_SALARY: int = 50
 PLUS_HAPPINESS_WHEN_SALARY_RAISED: float = 0.3
@@ -36,16 +36,16 @@ async def show_workers_menu(target: Message, other) -> None:
         parse_mode=ParseMode.MARKDOWN
     )
 
-@main_menu_router.message(F.text == "👷 Рабочие")
+@worker_panel_router.message(F.text == "👷 Рабочие")
 async def workers_msg_handler(message: Message) -> None:
     await show_workers_menu(message, message)
 
-@main_menu_router.callback_query(F.data == "to_workers_managing_kb")
+@worker_panel_router.callback_query(F.data == "to_workers_managing_kb")
 async def workers_callback_handler(call: CallbackQuery) -> None:
     await call.answer()
     await show_workers_menu(call.message, call)
 
-@main_menu_router.callback_query(F.data == "new_worker")
+@worker_panel_router.callback_query(F.data == "new_worker")
 async def new_worker_main(call: CallbackQuery) -> None:
     await call.answer()
     await call.message.edit_caption(
@@ -60,7 +60,7 @@ async def new_worker_main(call: CallbackQuery) -> None:
         parse_mode=ParseMode.MARKDOWN
     )
 
-@main_menu_router.callback_query(F.data == "dismiss_worker")
+@worker_panel_router.callback_query(F.data == "dismiss_worker")
 async def dismiss_worker_main(call: CallbackQuery) -> None:
     await call.answer()
     await call.message.edit_caption(
@@ -74,7 +74,7 @@ async def dismiss_worker_main(call: CallbackQuery) -> None:
         parse_mode=ParseMode.MARKDOWN
     )
 
-@main_menu_router.callback_query(F.data == "raise_salary")
+@worker_panel_router.callback_query(F.data == "raise_salary")
 async def raise_salary(call: CallbackQuery) -> None:
     factory = await get_factory_by_owner(call.from_user.id)
 
@@ -100,7 +100,7 @@ async def raise_salary(call: CallbackQuery) -> None:
     else:
         await call.answer(text="😇У вас максимальный уровень счастья рабочих или нет рабочих!", show_alert=True)
 
-@main_menu_router.callback_query(F.data == "teach_workers")
+@worker_panel_router.callback_query(F.data == "teach_workers")
 async def teach_workers(call: CallbackQuery) -> None:
     factory = await get_factory_by_owner(call.from_user.id)
 
@@ -126,7 +126,7 @@ async def teach_workers(call: CallbackQuery) -> None:
     else:
         await call.answer(text="⚙️У вас максимальный уровень качества техники или нет рабочих!", show_alert=True)
 
-@main_menu_router.callback_query(F.data.startswith("buy_worker_"))
+@worker_panel_router.callback_query(F.data.startswith("buy_worker_"))
 async def new_worker_count(call: CallbackQuery) -> None:
     count = int(call.data.split("_")[-1])
     factory = await get_factory_by_owner(call.from_user.id)
@@ -147,7 +147,7 @@ async def new_worker_count(call: CallbackQuery) -> None:
         show_alert=True
     )
 
-@main_menu_router.callback_query(F.data.startswith("delete_worker_"))
+@worker_panel_router.callback_query(F.data.startswith("delete_worker_"))
 async def new_worker_count(call: CallbackQuery) -> None:
     count = int(call.data.split("_")[-1])
     factory = await get_factory_by_owner(call.from_user.id)
