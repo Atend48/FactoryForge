@@ -9,6 +9,7 @@ from bot.handlers.base_commands import base_commands_router
 from bot.handlers.improvements_panel import improvements_panel_router
 from bot.handlers.manufacture_panel import manufacture_panel_router
 from bot.handlers.payments import payment_router
+from bot.handlers.sales_panel import sales_panel_router
 from bot.handlers.statistics_panel import statistic_panel_router
 from bot.handlers.worker_panel import worker_panel_router
 
@@ -28,6 +29,7 @@ async def main():
     dispatcher.include_router(improvements_panel_router)
     dispatcher.include_router(manufacture_panel_router)
     dispatcher.include_router(payment_router)
+    dispatcher.include_router(sales_panel_router)
 
     await bot.delete_webhook(drop_pending_updates=True)
     await dispatcher.start_polling(bot)

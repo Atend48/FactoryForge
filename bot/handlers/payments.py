@@ -39,7 +39,7 @@ async def main_payment_panel(call: CallbackQuery) -> None:
 async def send_eco_invoice(call: CallbackQuery) -> None:
     count = int(call.data.split("_")[-1])
 
-    invoice_price = 100000 if count == 10000 else 500000
+    invoice_price = 10000 if count == 10000 else 50000
 
     prices = [
         LabeledPrice(label="Покупка денег", amount=invoice_price)

@@ -7,3 +7,4 @@ bot/data/__pycache__
 bot/handlers/__pycache__
 bot/keyboards/__pycache__
 bot/__pycache__
+bot/bot.log

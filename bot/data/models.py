@@ -42,16 +42,17 @@ class Factory(Base):
     price: Mapped[float] = mapped_column(
         Computed("50 + (quality_of_equipment * 20) + (environmental_friendliness * 15)")
     )
-    number_of_production: Mapped[int] = mapped_column(default=0)
+    number_of_production: Mapped[int] = mapped_column(
+        CheckConstraint("number_of_production >= 0", name="check_number_of_production"),
+        default=0
+    )
+
     worker_fatigue: Mapped[int] = mapped_column(
         CheckConstraint("worker_fatigue < 3", name="check_worker_fatigue"),
         default=0
     )
 
     moneys: Mapped[int] = mapped_column(default=10000)
-    expenses_per_hour: Mapped[float] = mapped_column(
-        Computed("(number_of_workers * 100) + (environmental_friendliness * 50) + (quality_of_equipment * 30)")
-    )
     reputation: Mapped[float] = mapped_column(
         Computed("100 + (environmental_friendliness * 3) + (quality_of_equipment * 2)")
     )

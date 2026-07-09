@@ -73,9 +73,6 @@ actions_kb: InlineKeyboardMarkup = InlineKeyboardMarkup(inline_keyboard=[
 sales_kb: InlineKeyboardMarkup = InlineKeyboardMarkup(inline_keyboard=[
     [
         InlineKeyboardButton(text="💵 Продать всю технику", callback_data="sell_all")
-    ],
-    [
-        InlineKeyboardButton(text="💸 Продать часть техники", callback_data="sell_part")
     ]
 ])
 
