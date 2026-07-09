@@ -2,7 +2,7 @@
 .venv
 .idea
 bot/db
-bot/db.sqlite3
+db.sqlite3
 bot/data/__pycache__
 bot/handlers/__pycache__
 bot/keyboards/__pycache__
